@@ -2,6 +2,7 @@
 
 Interactive analytics dashboard for Olist's Brazilian e-commerce dataset,
 built with PostgreSQL + R Shiny.
+https://davinamufidah.shinyapps.io/shiny
 
 ## Features
 - **Revenue Trend** — Monthly GMV and average order value
