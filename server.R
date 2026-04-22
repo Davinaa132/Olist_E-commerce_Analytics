@@ -1,5 +1,3 @@
-perbaiki codingan di serever.app ini karena dashboard di rshiny disconnect
-
 library(DBI)
 library(RPostgres)
 library(dplyr)
