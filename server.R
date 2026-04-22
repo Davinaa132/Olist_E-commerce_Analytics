@@ -19,7 +19,7 @@ server <- function(input, output, session) {
       host     = "localhost",
       port     = 5432,
       user     = "postgres",
-      password = "18maret2003"
+      password = "admin123"
     )
   }, error = function(e) {
     stop("GAGAL TERHUBUNG KE DATABASE: ", e$message)
