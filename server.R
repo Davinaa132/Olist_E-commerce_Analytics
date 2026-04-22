@@ -15,14 +15,14 @@ server <- function(input, output, session) {
   con <- tryCatch({
     dbConnect(
       RPostgres::Postgres(),
-      dbname   = "olist_db",
-      host     = "localhost",
-      port     = 5432,
-      user     = "postgres",
-      password = "admin123"
+      dbname   = "postgres",  # ← WAJIB "postgres" (Jangan pakai olist_db)
+      host     = "aws-1-ap-northeast-2.pooler.supabase.com",
+      port     = 6543,        # ← WAJIB 6543 (Bukan 5432)
+      user     = "postgres.jcutvplvmttgkbbxmexo", 
+      password = "BXj$VvYf5Y#9UKt" # ← Masukkan password Supabase-mu
     )
   }, error = function(e) {
-    stop("GAGAL TERHUBUNG KE DATABASE: ", e$message)
+    stop("GAGAL TERHUBUNG KE SUPABASE: ", e$message)
   })
 
   # ── Helper: filter tahun pada query ──────────────
