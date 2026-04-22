@@ -1,3 +1,6 @@
+library(shiny)            # DITAMBAHKAN: Wajib untuk fungsi reaktif
+library(shinydashboard)   # DITAMBAHKAN: Untuk renderValueBox dan valueBox
+library(DT)               # DITAMBAHKAN: Untuk renderDT dan datatable
 library(DBI)
 library(RPostgres)
 library(dplyr)
@@ -31,7 +34,7 @@ server <- function(input, output, session) {
   overview_data <- reactive({
     dbGetQuery(con, paste0("
       SELECT
-        COUNT(DISTINCT o.order_id)                           AS total_orders,
+        COUNT(DISTINCT o.order_id)                             AS total_orders,
         ROUND(SUM(oi.price + oi.freight_value)::NUMERIC, 2) AS total_revenue,
         ROUND(AVG(r.review_score)::NUMERIC, 2)              AS avg_rating,
         COUNT(DISTINCT c.customer_unique_id)                 AS total_customers
