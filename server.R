@@ -9,15 +9,31 @@ library(lubridate)
 server <- function(input, output, session) {
 
   # ── Koneksi Database ─────────────────────────────
-  con <- dbConnect(
-    RPostgres::Postgres(),
-    dbname   = "olist_db",
-    host     = "localhost",
-    port     = 5432,
-    user     = "postgres",
-    password = "18maret2003"   # ← Ganti dengan password PostgreSQL kamu
-  )
-  onStop(function() dbDisconnect(con))
+  server <- function(input, output, session) {
+
+  # ── Koneksi Database ─────────────────────────────
+  con <- tryCatch({
+    dbConnect(
+      RPostgres::Postgres(),
+      dbname   = "olist_db",
+      host     = "localhost",
+      port     = 5432,
+      user     = "postgres",
+      password = "admin123"   # ← Ganti di sini
+    )
+  }, error = function(e) {
+    showNotification(
+      paste("Gagal konek ke database:", e$message),
+      type = "error", duration = NULL
+    )
+    NULL
+  })
+
+  if (is.null(con)) return()
+
+  onStop(function() {
+    if (!is.null(con)) dbDisconnect(con)
+  })
 
   # ── Helper: filter tahun pada query ──────────────
   year_clause <- reactive({
