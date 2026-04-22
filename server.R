@@ -13,27 +13,22 @@ server <- function(input, output, session) {
 
   # ── Koneksi Database ─────────────────────────────
   con <- tryCatch({
-    dbConnect(
-      RPostgres::Postgres(),
-      dbname   = "olist_db",
-      host     = "localhost",
-      port     = 5432,
-      user     = "postgres",
-      password = "admin123"   # ← Ganti di sini
-    )
-  }, error = function(e) {
-    showNotification(
-      paste("Gagal konek ke database:", e$message),
-      type = "error", duration = NULL
-    )
-    NULL
-  })
-
-  if (is.null(con)) return()
-
-  onStop(function() {
-    if (!is.null(con)) dbDisconnect(con)
-  })
+  dbConnect(
+    RPostgres::Postgres(),
+    dbname   = "postgres",
+    host     = "db.jcutvplvmttgkbbxmexo.supabase.co",
+    port     = 5432,
+    user     = "postgres",
+    password = "BXj$VvYf5Y#9UKt",   # ← isi password Supabase kamu
+    sslmode  = "require"
+  )
+}, error = function(e) {
+  showNotification(
+    paste("Gagal konek ke database:", e$message),
+    type = "error", duration = NULL
+  )
+  NULL
+})
 
   # ── Helper: filter tahun pada query ──────────────
   year_clause <- reactive({
