@@ -12,15 +12,18 @@ library(lubridate)
 server <- function(input, output, session) {
 
   # ── Koneksi Database ─────────────────────────────
-  con <- dbConnect(
-    RPostgres::Postgres(),
-    dbname   = "olist_db",
-    host     = "localhost",
-    port     = 5432,
-    user     = "postgres",
-    password = "18maret2003"   # ← Ganti dengan password PostgreSQL kamu
-  )
-  onStop(function() dbDisconnect(con))
+  con <- tryCatch({
+    dbConnect(
+      RPostgres::Postgres(),
+      dbname   = "olist_db",
+      host     = "localhost",
+      port     = 5432,
+      user     = "postgres",
+      password = "18maret2003"
+    )
+  }, error = function(e) {
+    stop("GAGAL TERHUBUNG KE DATABASE: ", e$message)
+  })
 
   # ── Helper: filter tahun pada query ──────────────
   year_clause <- reactive({
